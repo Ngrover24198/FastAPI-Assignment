@@ -1,0 +1,5 @@
+# Compiled Python bytecode
+*.py[cod]
+
+# remove .pyc files
+*.pyc 
