@@ -4,6 +4,42 @@ The below code can be used as the boiler plate for any fastapi based application
 # Items in Repository:
 This repository consists of or **fastapi application**(accessible via main.py), **HLD diagram** for the application, **.gitignore** file, and **readme.md** file that contains the documentation and steps to make it work locally.
 
+# Alembic Explanation
+We have used an alembic package that keeps the track of database versioning, It's easy to use and maintain and more about alembic can be read via the references provided below. 
+
+Create table command to be used:
+```
+CREATE TABLE assignment (
+    source_id INTEGER PRIMARY KEY NOT NULL,
+    source VARCHAR(200),
+    source_type VARCHAR(10),
+    source_tag VARCHAR(10),
+    last_updated_date TIMESTAMP,
+    from_date TIMESTAMP,
+    to_date TIMESTAMP,
+    frequency VARCHAR(5)
+);
+```
+got converted into python sqlalchemy code used in alembic version as:
+```
+def upgrade() -> None:
+    op.create_table(
+        'assignment',     
+        sa.Column('source_id', sa.Integer(), primary_key=True, nullable=False),
+        sa.Column('source', sa.String(length=200), nullable=True),
+        sa.Column('source_type', sa.String(length=10), nullable=True),
+        sa.Column('source_tag', sa.String(length=10), nullable=True),
+        sa.Column('last_updated_date', sa.DateTime(), nullable=True),
+        sa.Column('from_date', sa.DateTime(), nullable=True),
+        sa.Column('to_date', sa.DateTime(), nullable=True),
+        sa.Column('frequency', sa.String(length=5), nullable=True),
+    )
+
+
+def downgrade() -> None:
+    op.drop_table('assignment')
+```
+
 # How to run the Application
 ## Step-1
 Create a Postgres Database in your local system using pgadmin tool or we can simply type in the commands as mentioned below:
@@ -21,6 +57,11 @@ handling all of our fastapi queries. We need to add URL in **models->db_models.p
 Format for database URL is mentioned here:
 ```
 postgresql://<username>:<password>@<IP_address>:<port>/<database name>
+```
+
+Once this is done we need to upgrade the alembic locally, and for that we already have a file in this repository, hence we only use the command as:
+```command prompt
+alembic upgrade head
 ```
 
 ## Step-3
@@ -144,5 +185,11 @@ OUTPUT:
   }
 }
 ```
+
+## References:
+https://fastapi.tiangolo.com/tutorial/first-steps/ <br>
+https://codevoweb.com/crud-restful-api-server-with-python-fastapi-and-postgresql/ <br>
+https://tutlinks.com/fastapi-with-postgresql-crud-async/ <br>
+https://alembic.sqlalchemy.org/en/latest/ <br>
 
 **This concludes the explanation for the working of fastapi assignment**
