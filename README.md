@@ -191,5 +191,3 @@ https://fastapi.tiangolo.com/tutorial/first-steps/ <br>
 https://codevoweb.com/crud-restful-api-server-with-python-fastapi-and-postgresql/ <br>
 https://tutlinks.com/fastapi-with-postgresql-crud-async/ <br>
 https://alembic.sqlalchemy.org/en/latest/ <br>
-
-**This concludes the explanation for the working of fastapi assignment**
